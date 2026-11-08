@@ -3,13 +3,14 @@ import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
+import { useLanguage } from "../context/LanguageContext";
 import "./Navbar.css";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { language, languages, changeLanguage, currentLanguage, t } = useLanguage();
 
   const user = auth.currentUser;
-
   const closeMenu = () => setMenuOpen(false);
 
   const handleLogout = async () => {
@@ -25,18 +26,40 @@ export default function Navbar() {
     user?.displayName || user?.email?.split("@")[0] || "مستخدم";
 
   const links = [
-    { to: "/", label: "الرئيسية", end: true },
-    { to: "/worlds", label: "العوالم" },
-    { to: "/tools", label: "الأدوات" },
-    { to: "/world/ai", label: "الذكاء الاصطناعي" },
-    { to: "/world/cyber", label: "الأمن السيبراني" },
-    { to: "/dashboard", label: "لوحة التحكم" },
+    { to: "/", label: t("home"), end: true },
+    { to: "/worlds", label: t("worlds") },
+    { to: "/tools", label: t("tools") },
+    { to: "/world/ai", label: t("ai") },
+    { to: "/world/cyber", label: t("cyber") },
+    { to: "/dashboard", label: t("dashboard") },
   ];
 
-  return (
-    <header className="ww-navbar" dir="rtl">
-      <div className="ww-navbar-inner">
+  const languageSelector = (
+    <label className="ww-language-selector">
+      <span aria-hidden="true">🌐</span>
+      <select
+        aria-label={t("language")}
+        value={language}
+        onChange={(event) => {
+          changeLanguage(event.target.value);
+          closeMenu();
+        }}
+      >
+        {languages.map((item) => (
+          <option key={item.code} value={item.code}>
+            {item.native}
+          </option>
+        ))}
+      </select>
+    </label>
+  );
 
+  return (
+    <header
+      className="ww-navbar"
+      dir={currentLanguage.dir}
+    >
+      <div className="ww-navbar-inner">
         <Link to="/" className="ww-navbar-brand" onClick={closeMenu}>
           <span className="ww-navbar-logo">W</span>
           <span className="ww-navbar-brand-text">
@@ -48,7 +71,7 @@ export default function Navbar() {
           className="ww-navbar-toggle"
           type="button"
           onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="فتح القائمة"
+          aria-label="Toggle menu"
           aria-expanded={menuOpen}
         >
           {menuOpen ? "✕" : "☰"}
@@ -69,18 +92,24 @@ export default function Navbar() {
             </NavLink>
           ))}
 
+          <div className="ww-navbar-mobile-language">
+            {languageSelector}
+          </div>
+
           <div className="ww-navbar-mobile-account">
             <span className="ww-navbar-avatar">
               {username.charAt(0).toUpperCase()}
             </span>
             <span>{username}</span>
             <button onClick={handleLogout} type="button">
-              تسجيل الخروج
+              {t("logout")}
             </button>
           </div>
         </nav>
 
         <div className="ww-navbar-account">
+          {languageSelector}
+
           <div className="ww-navbar-user">
             <span className="ww-navbar-avatar">
               {username.charAt(0).toUpperCase()}
@@ -93,10 +122,9 @@ export default function Navbar() {
             onClick={handleLogout}
             className="ww-navbar-logout"
           >
-            خروج
+            {t("logout")}
           </button>
         </div>
-
       </div>
     </header>
   );

@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import {
   BrowserRouter,
@@ -9,11 +10,14 @@ import {
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase";
 
+import { LanguageProvider } from "./context/LanguageContext.jsx";
+
 import AuthPage from "./pages/AuthPage.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import WorldPage from "./pages/WorldPage.jsx";
 import ToolsPage from "./pages/ToolsPage.jsx";
 import DashboardPage from "./pages/DashboardPage.jsx";
+import HybridAcademyPage from "./pages/HybridAcademyPage.jsx";
 
 import "./App.css";
 
@@ -57,15 +61,11 @@ function AppContent() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
-
       <Route path="/dashboard" element={<DashboardPage />} />
-
       <Route path="/worlds" element={<WorldPage />} />
-
       <Route path="/tools" element={<ToolsPage />} />
-
       <Route path="/world/:id" element={<WorldPage />} />
-
+      <Route path="/hybrid-academy" element={<HybridAcademyPage />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
@@ -74,7 +74,9 @@ function AppContent() {
 function App() {
   return (
     <BrowserRouter>
-      <AppContent />
+      <LanguageProvider>
+        <AppContent />
+      </LanguageProvider>
     </BrowserRouter>
   );
 }

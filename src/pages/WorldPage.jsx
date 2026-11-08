@@ -4,46 +4,45 @@ import Navbar from "../components/Navbar";
 import { worlds } from "../data/worlds";
 import CyberWorldPage from "../CyberWorldPage";
 import AIWorldPage from "../AIWorldPage";
+import ExtraWorldPage from "../ExtraWorldPage";
+import TechWorldPage from "../TechWorldPage";
+import EducationWorldPage from "../EducationWorldPage";
 import "./WorldsPage.css";
 
 export default function WorldPage() {
   const { id } = useParams();
 
-  // عالم الأمن السيبراني
-  if (id === "cyber") {
-    return <CyberWorldPage />;
+  if (id === "cyber") return <CyberWorldPage />;
+  if (id === "ai") return <AIWorldPage />;
+  if (id === "technology") return <TechWorldPage />;
+  if (id === "education") return <EducationWorldPage />;
+
+  const extraWorlds = [
+    "business",
+    "creative",
+    "explore",
+    "tools",
+  ];
+
+  if (extraWorlds.includes(id)) {
+    return <ExtraWorldPage />;
   }
 
-  // عالم الذكاء الاصطناعي
-  if (id === "ai") {
-    return <AIWorldPage />;
-  }
-
-  // صفحة قائمة العوالم
   if (!id) {
     return (
       <>
         <Navbar />
         <main className="ww-directory" dir="rtl">
           <section className="ww-directory-hero">
-            <span>THE UNIVERSE OF WASEEM WORLD</span>
-            <h1>عوالم بلا حدود.</h1>
+            <span>WASEEM WORLD / EXPLORE</span>
+            <h1>اكتشف عوالم بلا حدود.</h1>
             <p>
-              اكتشف المعرفة والتكنولوجيا والإبداع والأدوات.
-              اختر عالمك وابدأ رحلتك.
+              ثمانية عوالم تجمع المعرفة والتقنية والإبداع
+              والفرص في مساحة واحدة.
             </p>
-            <strong>{String(worlds.length).padStart(2, "0")} WORLDS</strong>
           </section>
 
           <section className="ww-directory-section">
-            <div className="ww-directory-heading">
-              <div>
-                <span>EXPLORE OUR UNIVERSE</span>
-                <h2>اكتشف جميع العوالم</h2>
-              </div>
-              <Link to="/">الرئيسية ↗</Link>
-            </div>
-
             <div className="ww-directory-grid">
               {worlds.map((world) => (
                 <Link
@@ -51,18 +50,11 @@ export default function WorldPage() {
                   className="ww-directory-card"
                   key={world.id}
                 >
-                  <div className="ww-directory-card-top">
-                    <span>WORLD {world.number}</span>
-                    <strong>{world.icon}</strong>
-                  </div>
-
-                  <h3>{world.nameAr}</h3>
-                  <h4>{world.name}</h4>
-                  <p>{world.description}</p>
-
-                  <div className="ww-directory-card-bottom">
-                    <span>{world.tagline}</span>
-                    <b>↗</b>
+                  <span>{world.icon}</span>
+                  <div>
+                    <h2>{world.title}</h2>
+                    <p>{world.desc}</p>
+                    <small>{world.en}</small>
                   </div>
                 </Link>
               ))}
@@ -73,15 +65,14 @@ export default function WorldPage() {
     );
   }
 
-  // صفحة العالم المختار
   const world = worlds.find((item) => item.id === id);
 
   if (!world) {
     return (
       <>
         <Navbar />
-        <main className="world-not-found">
-          <h1>هذا العالم غير موجود</h1>
+        <main className="ww-directory" dir="rtl">
+          <h1>العالم غير موجود</h1>
           <Link to="/worlds">العودة إلى العوالم</Link>
         </main>
       </>
@@ -91,45 +82,12 @@ export default function WorldPage() {
   return (
     <>
       <Navbar />
-
-      <main className="world-detail">
-        <section className="world-detail-hero">
-          <div className="world-detail-content">
-            <span>WASEEM WORLD / WORLD {world.number}</span>
-            <div className="world-detail-icon">{world.icon}</div>
-            <h1>{world.nameAr}</h1>
-            <h2>{world.name}</h2>
-            <p>{world.description}</p>
-
-            <Link to="/tools" className="world-primary-button">
-              استكشف الأدوات
-            </Link>
-          </div>
-
-          <div className="world-detail-side">
-            <span>DISCOVER</span>
-            <strong>{world.number}</strong>
-            <p>{world.tagline}</p>
-          </div>
-        </section>
-
-        <section className="world-features-section">
-          <h2>ماذا ستجد هنا؟</h2>
-
-          <div className="world-features-grid">
-            {world.features.map((feature, index) => (
-              <article className="world-feature-card" key={index}>
-                <span>0{index + 1}</span>
-                <h3>{feature}</h3>
-                <p>
-                  اكتشف هذا المجال وتعرّف على أهم المعلومات والموارد
-                  المرتبطة به داخل WASEEM WORLD.
-                </p>
-                <Link to="/tools">استكشف الأدوات ←</Link>
-              </article>
-            ))}
-          </div>
-        </section>
+      <main className="world-detail" dir="rtl">
+        <Link to="/worlds">← جميع العوالم</Link>
+        <h1>{world.title}</h1>
+        <h2>{world.en}</h2>
+        <p>{world.desc}</p>
+        <Link to="/tools">استكشف الأدوات</Link>
       </main>
     </>
   );
