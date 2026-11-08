@@ -1,0 +1,189 @@
+
+.ww-directory {
+  min-height: 100vh;
+  background: #f8fafc;
+  color: #101820;
+  font-family: 'Cairo', sans-serif;
+}
+
+.ww-directory-hero {
+  padding: 85px 8%;
+  background: linear-gradient(120deg, #101a28, #193b68);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.ww-directory-hero::after {
+  content: "W";
+  position: absolute;
+  left: 8%;
+  top: -120px;
+  font: 900 380px Inter, sans-serif;
+  color: #ffffff09;
+}
+
+.ww-directory-hero > span,
+.ww-directory-heading > div > span {
+  font: 800 10px Inter, sans-serif;
+  letter-spacing: 3px;
+  color: #86b4ff;
+}
+
+.ww-directory-hero h1 {
+  font-size: clamp(45px, 7vw, 76px);
+  font-weight: 900;
+  margin: 22px 0 12px;
+}
+
+.ww-directory-hero p {
+  max-width: 560px;
+  color: #d1ddec;
+  line-height: 2;
+  font-size: 14px;
+}
+
+.ww-directory-hero > strong {
+  display: inline-block;
+  margin-top: 30px;
+  font: 800 12px Inter, sans-serif;
+  letter-spacing: 3px;
+  color: #9bc2ff;
+}
+
+.ww-directory-section {
+  max-width: 1450px;
+  padding: 75px 7%;
+  margin: auto;
+}
+
+.ww-directory-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  margin-bottom: 35px;
+}
+
+.ww-directory-heading h2 {
+  font-size: 35px;
+  font-weight: 900;
+  margin: 10px 0 0;
+}
+
+.ww-directory-heading > a {
+  font-size: 12px;
+  font-weight: 800;
+  color: #2366e8;
+}
+
+.ww-directory-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 17px;
+}
+
+.ww-directory-card {
+  min-height: 285px;
+  background: white;
+  border: 1px solid #e5eaf0;
+  border-radius: 10px;
+  padding: 23px;
+  display: flex;
+  flex-direction: column;
+  transition: .25s ease;
+  color: #101820;
+  text-decoration: none;
+}
+
+.ww-directory-card:hover {
+  transform: translateY(-6px);
+  border-color: #9bbcf0;
+  box-shadow: 0 20px 40px #183b6812;
+}
+
+.ww-directory-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ww-directory-card-top span {
+  font: 800 9px Inter, sans-serif;
+  color: #99a4af;
+  letter-spacing: 1.5px;
+}
+
+.ww-directory-card-top strong {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  background: #eff5ff;
+  color: #2366e8;
+  border-radius: 9px;
+  font-size: 22px;
+}
+
+.ww-directory-card h3 {
+  font-size: 21px;
+  font-weight: 900;
+  margin: 25px 0 2px;
+}
+
+.ww-directory-card h4 {
+  font: 800 9px Inter, sans-serif;
+  letter-spacing: 1.5px;
+  color: #8b98a6;
+  margin: 0;
+}
+
+.ww-directory-card p {
+  font-size: 11px;
+  line-height: 2;
+  color: #778390;
+  margin: 15px 0 20px;
+}
+
+.ww-directory-card-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #edf0f3;
+  padding-top: 13px;
+  margin-top: auto;
+}
+
+.ww-directory-card-bottom span {
+  font: 800 8px Inter, sans-serif;
+  color: #8b98a6;
+  letter-spacing: 1px;
+}
+
+.ww-directory-card-bottom b {
+  color: #2366e8;
+  font-size: 19px;
+}
+
+@media (max-width: 1000px) {
+  .ww-directory-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .ww-directory-hero {
+    padding: 65px 6%;
+  }
+
+  .ww-directory-section {
+    padding: 55px 6%;
+  }
+
+  .ww-directory-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ww-directory-heading h2 {
+    font-size: 26px;
+  }
+}
